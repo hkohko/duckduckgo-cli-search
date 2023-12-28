@@ -7,6 +7,6 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.77"
-html2text = "0.9.1"
+select = "0.6.0"
 ureq = "2.9.1"
 url = "2.5.0"
