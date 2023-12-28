@@ -13,7 +13,6 @@ fn build_url(search_term: &str) -> Result<url::Url> {
     let base = url::Url::parse("https://www.google.com/")?;
     let search = base.join("search?")?;
     let link = url::Url::parse_with_params(search.as_str(), &[("q", search_term)])?;
-    dbg!(&search);
     Ok(link)
 }
 fn html_to_text(res: Result<String>) -> Result<()> {
@@ -31,13 +30,11 @@ fn input() -> String {
     userinput
 }
 fn main() {
-    loop {
-        let userinput = input();
-        let url = build_url(userinput.as_str());
-        let res = match url {
-            Ok(val) => make_request(&val),
-            Err(_) => Ok("None".to_string())
-        };
-        let _ = html_to_text(res);
-    }
+    let userinput = input();
+    let url = build_url(userinput.as_str());
+    let res = match url {
+        Ok(val) => make_request(&val),
+        Err(_) => Ok("None".to_string()),
+    };
+    let _ = html_to_text(res);
 }
