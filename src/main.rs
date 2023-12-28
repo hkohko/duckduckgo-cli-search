@@ -1,8 +1,8 @@
 use anyhow::Result;
 use html2text;
+use std::env;
 use ureq;
 use url;
-use std::env;
 
 fn make_request(url: &url::Url) -> Result<String> {
     let agent = ureq::get(url.as_str()).call()?;
