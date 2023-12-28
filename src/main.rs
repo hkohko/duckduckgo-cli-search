@@ -10,8 +10,8 @@ fn make_request(url: &url::Url) -> Result<String> {
     Ok(page)
 }
 fn build_url(search_term: &str) -> Result<url::Url> {
-    let base = url::Url::parse("https://www.google.com/")?;
-    let search = base.join("search?")?;
+    let base = url::Url::parse("https://html.duckduckgo.com/")?;
+    let search = base.join("html/?")?;
     let link = url::Url::parse_with_params(search.as_str(), &[("q", search_term)])?;
     Ok(link)
 }
@@ -22,7 +22,8 @@ fn html_to_text(res: &str) -> Result<()> {
     Ok(())
 }
 fn input() -> String {
-    let args = env::args().collect::<Vec<String>>();
+    let mut args = env::args().collect::<Vec<String>>();
+    args.remove(0);
     args.join(" ")
 }
 fn main() {
