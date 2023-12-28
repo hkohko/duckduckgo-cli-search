@@ -2,7 +2,7 @@ use anyhow::Result;
 use std::env;
 use ureq;
 use url;
-use select::predicate::{Name, Attr};
+use select::predicate::Name;
 use select::document::Document;
 
 fn make_request(url: &url::Url) -> Result<String> {
