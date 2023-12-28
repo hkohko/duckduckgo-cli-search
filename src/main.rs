@@ -1,9 +1,9 @@
 use anyhow::Result;
+use select::document::Document;
+use select::predicate::Name;
 use std::env;
 use ureq;
 use url;
-use select::predicate::Name;
-use select::document::Document;
 
 fn make_request(url: &url::Url) -> Result<String> {
     let agent = ureq::get(url.as_str()).call()?;
@@ -19,18 +19,20 @@ fn build_url(search_term: &str) -> Result<url::Url> {
 fn html_to_text(res: &str) -> Result<()> {
     let doc = Document::from(res);
     let divs = doc.find(Name("div"));
-    
+
     let mut div_vec = Vec::with_capacity(50);
     for div in divs {
-        if div.attr("class").unwrap_or("None") == "result results_links results_links_deep web-result " {
+        if div.attr("class").unwrap_or("None")
+            == "result results_links results_links_deep web-result "
+        {
             div_vec.push(div);
         }
     }
-    
+
     let mut a_vec = Vec::with_capacity(50);
     for div in div_vec.iter() {
-        for a in div.find(Name("a")){
-            if a.attr("class").unwrap_or("None") == "result__snippet"{
+        for a in div.find(Name("a")) {
+            if a.attr("class").unwrap_or("None") == "result__snippet" {
                 a_vec.push(a.text());
             }
         }
